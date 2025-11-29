@@ -86,7 +86,11 @@ module cat_box() {
       lid_cutout();
     }
   }
+
+  translate([1.05, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD + 0.05]) {
+    lid(/*CAT_NAME, true*/);
+  }
 }
 
-//cat_box();
-lid(/*CAT_NAME*/);
+cat_box();
+//lid(CAT_NAME);

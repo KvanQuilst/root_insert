@@ -15,8 +15,9 @@ LID_SLOT_PAD = 3.5;
 LID_DEPTH = 2.3;
 LID_BEZEL = 5.0;
 LID_TEXT_LEN = LID_WIDTH - (LID_BEZEL * 2);
+
 LID_HEX_RAD = 2.0;
-LID_HEX_PAD = 1.0;
+LID_HEX_PAD = 0.6;
 
 FINGER_WIDTH = 14.0;
 FINGER_HEIGHT = 11.0;
@@ -70,7 +71,9 @@ module text_emboss(t) {
 }
 
 module hexagon(radius) {
-  circle(r = radius, $fn = 6);
+  translate([radius, radius, 0]) {
+    circle(r = radius, $fn = 6);
+  }
 }
 
 module faction_text_transform(text_len, pos) {
@@ -142,23 +145,28 @@ module lid_cutout() {
   }
 }
 
-module lid(t = "") {
-  hex_space = (LID_HEX_RAD * 2) + LID_HEX_PAD;
-  lid_len = LID_LEN - (t == "" ? 0 : TEXT_SIZE + LID_BEZEL);
+module lid(t = "", hexagons = false) {
+  lid_len = LID_LEN - (t == "" ? 0 : TEXT_SIZE);
+  hex_space = (LID_HEX_RAD * 3) + LID_HEX_PAD;
+  num_hex = floor((LID_WIDTH - (2 * LID_BEZEL)) / hex_space);
+  hex_rows = floor((lid_len - (2 * LID_BEZEL)) / (hex_space / 2));
+  hex_width = (num_hex * hex_space) - LID_HEX_PAD - LID_HEX_RAD;
+  
 
   difference() {
     cube(size = [LID_WIDTH, LID_LEN, LID_DEPTH],
          center = false);
   
     /* Hexagons */
-    for (i = [0 : floor((lid_len - (2 * LID_BEZEL)) / hex_space)],
-         j = [0 : floor((LID_WIDTH - (2 * LID_BEZEL)) / hex_space) - (i % 2)]) {
-      linear_extrude(height = LID_DEPTH)
-      translate([LID_BEZEL + (j * hex_space) + ((i % 2) * (hex_space / 2)),
-                 LID_LEN - LID_BEZEL - (i * hex_space) - (LID_HEX_RAD * 2),
-                 0])
-      translate([LID_HEX_RAD, LID_HEX_RAD, 0.0]) {
-        hexagon(LID_HEX_RAD);
+    if (hexagons) {
+      for (i = [0 : hex_rows - 1],
+           j = [0 : num_hex - (i % 2) - 1]) {
+        linear_extrude(height = LID_DEPTH)
+        translate([((LID_WIDTH - hex_width) / 2) + (j * hex_space) + ((i % 2) * hex_space / 2),
+                   LID_LEN - LID_BEZEL - (i * hex_space / 2) - (LID_HEX_RAD * 2),
+                   0]) {
+          hexagon(LID_HEX_RAD);
+        }
       }
     }
     
