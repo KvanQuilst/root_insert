@@ -12,9 +12,10 @@ CAT_DEPTH = 8.6;
 CAT_BUILDINGS = 19;
 CAT_TOKENS = 9;
 
+CAT_NAME = "Marquise de Cat";
 CAT_TEXT_LEN = 60.0;
 
-faction_height = FACTION_HEIGHT_PAD + CAT_HEIGHT;
+faction_height = faction_height_add(CAT_HEIGHT + PIECE_PAD);
 
 module cat_box() {
   difference() {
@@ -74,13 +75,18 @@ module cat_box() {
     }
 
     /*faction_text_transform(CAT_TEXT_LEN, "l") {
-      text_emboss("Marquise de Cat");
+      text_emboss(CAT_NAME);
     }
 
     faction_text_transform(CAT_TEXT_LEN, "r") {
-      text_emboss("Marquise de Cat");
+      text_emboss(CAT_NAME);
     }*/
+
+    translate([1.0, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD]) {
+      lid_cutout();
+    }
   }
 }
 
-cat_box();
+//cat_box();
+lid(/*CAT_NAME*/);
