@@ -22,22 +22,14 @@ module cat_box() {
     faction_base(CAT_HEIGHT);
 
     for (i = [0 : 3]) {
+      num_warriors = i < 3 ? 7 : 4;
       translate([0,
                  FACTION_BEZEL + (i * (FACTION_BEZEL + slot_width(CAT_WIDTH))),
                  0]) {
-        if (i < 3) {
-          translate([(FACTION_WIDTH - slot_length(CAT_DEPTH, 7)) / 2,
-                     0,
-                     faction_height - CAT_HEIGHT - PIECE_PAD]) {
-            warrior_slot(CAT_WIDTH, CAT_HEIGHT, CAT_DEPTH, 7);
-          }
-        }
-        else {
-          translate([FACTION_BEZEL,
-                     0,
-                     faction_height - CAT_HEIGHT - PIECE_PAD]) {
-            warrior_slot(CAT_WIDTH, CAT_HEIGHT, CAT_DEPTH, 4);
-          }
+        translate([(FACTION_WIDTH - slot_length(CAT_DEPTH, num_warriors)) / 2,
+                   0,
+                   faction_height - CAT_HEIGHT - PIECE_PAD]) {
+          warrior_slot(CAT_WIDTH, CAT_HEIGHT, CAT_DEPTH, num_warriors);
         }
         
         translate([0,
@@ -46,8 +38,6 @@ module cat_box() {
           finger_slot(CAT_WIDTH, faction_height);
         }
       }
-                 
-                 
     }
 
     /* Row 5 */
@@ -82,15 +72,15 @@ module cat_box() {
       text_emboss(CAT_NAME);
     }*/
 
-    translate([1.0, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD]) {
+    /*translate([(FACTION_WIDTH - LID_WIDTH) / 2, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD]) {
       lid_cutout();
-    }
+    }*/
   }
 
-  translate([1.05, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD + 0.05]) {
-    lid(/*CAT_NAME, true*/);
-  }
+  /*translate([(FACTION_WIDTH - LID_WIDTH + 0.1) / 2, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD + 0.05]) {
+    lid(CAT_NAME, true);
+  }*/
 }
 
 cat_box();
-//lid(CAT_NAME);
+//lid_cutout();
