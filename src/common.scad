@@ -16,8 +16,15 @@ LID_DEPTH = 2.3;
 LID_BEZEL = 5.0;
 LID_TEXT_LEN = LID_WIDTH - (LID_BEZEL * 2);
 
+LID_TAB_WIDTH = LID_WIDTH / 4;
+LID_TAB_LEN = 10.0;
+LID_TAB_DEPTH = 1.5;
+
 LID_HEX_RAD = 2.0;
 LID_HEX_PAD = 0.6;
+
+NIB_WIDTH = LID_WIDTH / 4;
+NIB_DEPTH = 1.5;
 
 FINGER_WIDTH = 14.0;
 FINGER_HEIGHT = 11.0;
@@ -26,7 +33,7 @@ PIECE_PAD = 0.5;
 
 TEXT_HEIGHT = 4.0;
 TEXT_SIZE = 8.0;
-TEXT_DEPTH = 0.5;
+TEXT_DEPTH = 1.0;
 
 BUILDING_WIDTH = 18.1;
 TOKEN_WIDTH = 19.3;
@@ -151,11 +158,49 @@ module lid(t = "", hexagons = false) {
   num_hex = floor((LID_WIDTH - (2 * LID_BEZEL)) / hex_space);
   hex_rows = floor((lid_len - (2 * LID_BEZEL)) / (hex_space / 2));
   hex_width = (num_hex * hex_space) - LID_HEX_PAD - LID_HEX_RAD;
-  
+
+  module nib(l = NIB_WIDTH) {
+    resize([l, NIB_DEPTH, NIB_DEPTH]) {
+      sphere(r = 2.0, $fn = 30);
+    }
+  }
+
+  module tab() {
+    union() {
+      intersection() {
+        cube([LID_TAB_WIDTH, LID_TAB_DEPTH, LID_TAB_LEN]);
+        translate([LID_TAB_WIDTH / 2, 0, LID_TAB_LEN / 3])
+        rotate([-90, 22.5, 0]) {
+          cylinder(d = LID_TAB_WIDTH,
+                   h = LID_TAB_DEPTH,
+                   center = false,
+                   $fn = 8);
+        }
+      }
+      translate([LID_TAB_WIDTH / 2, LID_TAB_DEPTH, LID_TAB_LEN - 1.5]) {
+        nib(NIB_WIDTH / 2);
+      }
+    }
+  }
 
   difference() {
-    cube(size = [LID_WIDTH, LID_LEN, LID_DEPTH],
-         center = false);
+    union() {
+      cube(size = [LID_WIDTH, LID_LEN, LID_DEPTH],
+           center = false);
+
+      /* Hinge Nibs */
+      translate([0 , LID_LEN, LID_DEPTH / 2]) {
+        translate([LID_WIDTH / 4, 0, 0])
+          nib();
+        translate([(3 * LID_WIDTH) / 4, 0, 0])
+          nib();
+      }
+
+      /* Latch */
+      translate([(LID_WIDTH - LID_TAB_WIDTH) / 2, 0, 0]) {
+        tab();
+      }
+    }
   
     /* Hexagons */
     if (hexagons) {
@@ -173,8 +218,10 @@ module lid(t = "", hexagons = false) {
     if (t != "") {
       translate([(LID_WIDTH - LID_TEXT_LEN) / 2,
                  LID_BEZEL,
-                 LID_DEPTH])
-      rotate([-90, 0, 0])
+                 0])
+      translate([LID_TEXT_LEN / 2, 0, 0])
+      rotate([-90, 180, 0])
+      translate([-LID_TEXT_LEN / 2, 0, 0])
       resize([LID_TEXT_LEN, TEXT_DEPTH, TEXT_SIZE]) {
           text_emboss(t);
       }

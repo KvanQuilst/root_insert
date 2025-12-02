@@ -82,5 +82,5 @@ module cat_box() {
   }*/
 }
 
-cat_box();
-//lid_cutout();
+//cat_box();
+lid(CAT_NAME, true);
