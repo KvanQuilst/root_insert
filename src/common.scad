@@ -5,12 +5,12 @@
  */
 
 FACTION_WIDTH = 70.0;
-FACTION_LEN = 95.5;
-FACTION_BEZEL = 2.0;
+FACTION_LEN = 97.5;
+FACTION_BEZEL = 2.5;
 FACTION_HEIGHT_PAD = 1.5;
 
 LID_WIDTH = FACTION_WIDTH - ((FACTION_BEZEL - 0.5) * 2);
-LID_LEN = FACTION_LEN - 1.0;
+LID_LEN = FACTION_LEN - 2.0;
 LID_SLOT_PAD = 3.5;
 LID_DEPTH = 2.3;
 LID_BEZEL = 5.0;
@@ -49,8 +49,22 @@ function faction_height_add(warrior_height) =
   FACTION_HEIGHT_PAD + warrior_height;
 
 module faction_base(warrior_height) {
-  cube(size = [FACTION_WIDTH, FACTION_LEN, faction_height /*+ LID_SLOT_PAD*/],
-       center = false);
+  lid_width = LID_WIDTH + 0.1;
+  lid_len = LID_LEN + 0.1;
+  lid_depth = LID_TAB_LEN + 0.1;
+
+  difference() {
+    cube(size = [FACTION_WIDTH, FACTION_LEN, faction_height + LID_DEPTH + PIECE_PAD/*+ LID_SLOT_PAD*/],
+         center = false);
+
+    translate([(FACTION_WIDTH - lid_width) / 2, 0, faction_height + LID_DEPTH + PIECE_PAD])
+    translate([lid_width / 2, 0, 0])
+    rotate([0, 180, 0])
+    resize([lid_width, lid_len, lid_depth])
+    translate([-LID_WIDTH / 2, 0, 0]) {
+      lid();
+    }
+  }
 }
 
 module finger_slot(piece_width, insert_height) {
@@ -134,20 +148,6 @@ module token_slot(num_tokens, insert_height) {
                    slot_width(TOKEN_WIDTH),
                    insert_height],
            center = false);
-    }
-  }
-}
-
-module lid_cutout() {
-  union() {
-      cube(size = [LID_WIDTH + 0.1, LID_LEN + 0.1, LID_DEPTH + 0.1],
-           center = false);
-
-    translate([FACTION_BEZEL - (FACTION_WIDTH - LID_WIDTH - 0.1) / 2, 0, 0]) {
-      cube(size = [FACTION_WIDTH - (2 * FACTION_BEZEL),
-                   FACTION_LEN - FACTION_BEZEL,
-                   LID_SLOT_PAD],
-            center = false);
     }
   }
 }

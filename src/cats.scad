@@ -64,23 +64,22 @@ module cat_box() {
       }
     }
 
-    /*faction_text_transform(CAT_TEXT_LEN, "l") {
+    faction_text_transform(CAT_TEXT_LEN, "l") {
       text_emboss(CAT_NAME);
     }
 
     faction_text_transform(CAT_TEXT_LEN, "r") {
       text_emboss(CAT_NAME);
-    }*/
-
-    /*translate([(FACTION_WIDTH - LID_WIDTH) / 2, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD]) {
-      lid_cutout();
-    }*/
+    }
   }
-
-  /*translate([(FACTION_WIDTH - LID_WIDTH + 0.1) / 2, 0, FACTION_HEIGHT_PAD + CAT_HEIGHT + PIECE_PAD + 0.05]) {
-    lid(CAT_NAME, true);
-  }*/
 }
 
-//cat_box();
-lid(CAT_NAME, true);
+cat_box();
+
+translate([0, 0, faction_height])
+translate([(FACTION_WIDTH - LID_WIDTH) / 2, 0, LID_DEPTH + PIECE_PAD])
+translate([LID_WIDTH / 2, 0, 0])
+rotate([0, 180, 0])
+translate([-LID_WIDTH / 2, 0, 0]) {
+  lid(CAT_NAME, true);
+}
