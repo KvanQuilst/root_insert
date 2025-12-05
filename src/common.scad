@@ -228,3 +228,13 @@ module lid(t = "", hexagons = false) {
     }
   }
 }
+
+module lid_test_position(faction_height) {
+  translate([0, 0, faction_height])
+  translate([(FACTION_WIDTH - LID_WIDTH) / 2, 0, LID_DEPTH + PIECE_PAD])
+  translate([LID_WIDTH / 2, 0, 0])
+  rotate([0, 180, 0])
+  translate([-LID_WIDTH / 2, 0, 0]) {
+    children();
+  }
+}
