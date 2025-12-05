@@ -67,6 +67,55 @@ module faction_base(warrior_height) {
   }
 }
 
+module faction_front_translate(width, row) {
+  translate([0,
+             FACTION_BEZEL + (row * (FACTION_BEZEL + slot_width(width))),
+             0]) {
+    children();
+  }
+}
+
+module faction_warrior_finger_translate(width) {
+  translate([0,
+             (slot_width(width) - FINGER_WIDTH) / 2,
+             faction_height - FINGER_HEIGHT]) {
+    children();
+  }
+}
+
+module faction_back_translate() {
+  translate([0,
+             FACTION_LEN - FACTION_BEZEL,
+             0]) {
+    children();
+  }
+}
+
+module faction_building_slot_translate(faction_height) {
+  translate([FACTION_BEZEL,
+             -slot_width(BUILDING_WIDTH),
+             faction_height - slot_width(BUILDING_WIDTH)]) {
+    children();
+  }
+}
+
+module faction_token_slot_translate(faction_height) {
+  translate([FACTION_WIDTH - FACTION_BEZEL,
+             -slot_width(TOKEN_WIDTH),
+             faction_height - slot_width(TOKEN_WIDTH)]) 
+  mirror([1, 0, 0]) {
+    children();
+  }
+}
+
+module faction_cardboard_finger_translate(faction_height) {
+  translate([0,
+             (slot_width(BUILDING_WIDTH) - FINGER_WIDTH) / 2 - slot_width(BUILDING_WIDTH),
+             faction_height - FINGER_HEIGHT]) {
+    children();
+  }
+}
+
 module finger_slot(piece_width, insert_height) {
   union() {
     translate([0, 0, FINGER_WIDTH / 2]) {
