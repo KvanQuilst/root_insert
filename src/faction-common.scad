@@ -83,6 +83,29 @@ module faction_warrior_finger_translate(width) {
   }
 }
 
+module faction_warrior_slots(num_per_row, rows, num_warriors, warrior_width,
+                             warrior_height, warrior_depth) {
+  faction_height = faction_height_add(warrior_height + PIECE_PAD);
+
+  for (i = [1 : rows]) {
+    row_warriors = i * num_per_row < num_warriors
+                 ? num_per_row
+                 : num_warriors - ((i - 1) * num_per_row);
+
+    faction_front_translate(warrior_width, (i - 1)) {
+      translate([(FACTION_WIDTH - slot_length(warrior_depth, row_warriors)) / 2,
+                 0,
+                 faction_height - warrior_height - PIECE_PAD]) {
+        warrior_slot(warrior_width, warrior_height, warrior_depth, row_warriors);
+      }
+
+      faction_warrior_finger_translate(warrior_width) {
+        finger_slot(warrior_width, faction_height);
+      }
+    }
+  }
+}
+
 module faction_back_translate() {
   translate([0,
              FACTION_LEN - FACTION_BEZEL,

@@ -9,6 +9,8 @@ include <faction-common.scad>
 CAT_WIDTH = 15.5;
 CAT_HEIGHT = 21.6;
 CAT_DEPTH = 8.6;
+
+CAT_WARRIORS = 25;
 CAT_BUILDINGS = 19;
 CAT_TOKENS = 9;
 
@@ -21,20 +23,8 @@ module cat_box() {
   difference() {
     faction_base(CAT_HEIGHT);
 
-    for (i = [0 : 3]) {
-      num_warriors = i < 3 ? 7 : 4;
-      faction_front_translate(CAT_WIDTH, i) {
-        translate([(FACTION_WIDTH - slot_length(CAT_DEPTH, num_warriors)) / 2,
-                   0,
-                   faction_height - CAT_HEIGHT - PIECE_PAD]) {
-          warrior_slot(CAT_WIDTH, CAT_HEIGHT, CAT_DEPTH, num_warriors);
-        }
-        
-        faction_warrior_finger_translate(CAT_WIDTH) {
-          finger_slot(CAT_WIDTH, faction_height);
-        }
-      }
-    }
+    faction_warrior_slots(7, 4, CAT_WARRIORS,
+                          CAT_WIDTH, CAT_HEIGHT, CAT_DEPTH);
 
     /* Row 5 */
     faction_back_translate() {

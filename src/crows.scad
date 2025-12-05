@@ -10,6 +10,7 @@ CROW_WIDTH = 17.5;
 CROW_HEIGHT = 19.1;
 CROW_DEPTH = 9.3;
 
+CROW_WARRIORS = 15;
 CROW_BUILDINGS = 1;
 CROW_TOKENS = 12;
 
@@ -22,20 +23,8 @@ module crow_box() {
   difference() {
     faction_base(CROW_HEIGHT);
 
-    num_warriors = 5;
-    for (i = [0 : 2]) {
-      faction_front_translate(CROW_WIDTH, i) {
-        translate([(FACTION_WIDTH - slot_length(CROW_DEPTH, num_warriors)) / 2,
-                    0,
-                    faction_height - CROW_HEIGHT - PIECE_PAD]) {
-          warrior_slot(CROW_WIDTH, CROW_HEIGHT, CROW_DEPTH, num_warriors);
-        }
-
-        faction_warrior_finger_translate(CROW_WIDTH) {
-          finger_slot(CROW_WIDTH, faction_height);
-        }
-      }
-    }
+    faction_warrior_slots(5, 3, CROW_WARRIORS,
+                          CROW_WIDTH, CROW_HEIGHT, CROW_DEPTH);
 
     /* Row 4 */
     faction_back_translate()
