@@ -4,7 +4,7 @@
  * Project units: millimeters (mm)
  */
 
-include <common.scad>
+include <faction-common.scad>
 
 CROW_WIDTH = 17.5;
 CROW_HEIGHT = 19.1;

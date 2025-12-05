@@ -4,7 +4,7 @@
  * Project units: millimeters (mm)
  */
 
-include <common.scad>
+include <faction-common.scad>
 
 CAT_WIDTH = 15.5;
 CAT_HEIGHT = 21.6;
