@@ -23,63 +23,46 @@ module cat_box() {
 
     for (i = [0 : 3]) {
       num_warriors = i < 3 ? 7 : 4;
-      translate([0,
-                 FACTION_BEZEL + (i * (FACTION_BEZEL + slot_width(CAT_WIDTH))),
-                 0]) {
+      faction_front_translate(CAT_WIDTH, i) {
         translate([(FACTION_WIDTH - slot_length(CAT_DEPTH, num_warriors)) / 2,
                    0,
                    faction_height - CAT_HEIGHT - PIECE_PAD]) {
           warrior_slot(CAT_WIDTH, CAT_HEIGHT, CAT_DEPTH, num_warriors);
         }
         
-        translate([0,
-                   (slot_width(CAT_WIDTH) - FINGER_WIDTH) / 2,
-                   faction_height - FINGER_HEIGHT]) {
+        faction_warrior_finger_translate(CAT_WIDTH) {
           finger_slot(CAT_WIDTH, faction_height);
         }
       }
     }
 
     /* Row 5 */
-    translate([0,
-               FACTION_LEN - FACTION_BEZEL,
-               0]) {
-      translate([FACTION_BEZEL,
-                 -slot_width(BUILDING_WIDTH),
-                 faction_height - slot_width(BUILDING_WIDTH)]) {
+    faction_back_translate() {
+      faction_building_slot_translate(faction_height) {
         building_slot(CAT_BUILDINGS, faction_height);
-        
       }
-      translate([0,
-                 (slot_width(BUILDING_WIDTH) - FINGER_WIDTH) / 2 - slot_width(BUILDING_WIDTH),
-                 faction_height - FINGER_HEIGHT]) {
-        finger_slot(BUILDING_WIDTH, faction_height);
-      }
-  
-      translate([FACTION_WIDTH - FACTION_BEZEL,
-                 -slot_width(TOKEN_WIDTH),
-                 faction_height - slot_width(TOKEN_WIDTH)])
-      mirror([1, 0, 0]) {
+
+      faction_token_slot_translate(faction_height) {
         token_slot(CAT_TOKENS, faction_height);
+      }
+
+      faction_cardboard_finger_translate(faction_height) {
+        finger_slot(BUILDING_WIDTH, faction_height);
       }
     }
 
-    faction_text_transform(CAT_TEXT_LEN, "l") {
+    /*faction_text_transform(CAT_TEXT_LEN, "l") {
       text_emboss(CAT_NAME);
     }
 
     faction_text_transform(CAT_TEXT_LEN, "r") {
       text_emboss(CAT_NAME);
-    }
+    }*/
   }
 }
 
 cat_box();
 
-translate([0, 0, faction_height])
-translate([(FACTION_WIDTH - LID_WIDTH) / 2, 0, LID_DEPTH + PIECE_PAD])
-translate([LID_WIDTH / 2, 0, 0])
-rotate([0, 180, 0])
-translate([-LID_WIDTH / 2, 0, 0]) {
+/*lid_test_position(faction_height) {
   lid(CAT_NAME, true);
-}
+}*/

@@ -24,7 +24,7 @@ module crow_box() {
 
     num_warriors = 5;
     for (i = [0 : 2]) {
-      faction_front_translate(slot_width(CROW_WIDTH), i) {
+      faction_front_translate(CROW_WIDTH, i) {
         translate([(FACTION_WIDTH - slot_length(CROW_DEPTH, num_warriors)) / 2,
                     0,
                     faction_height - CROW_HEIGHT - PIECE_PAD]) {
