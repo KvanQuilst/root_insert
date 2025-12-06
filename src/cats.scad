@@ -56,13 +56,7 @@ module cat_box() {
       }
     }
 
-    /*faction_text_transform(CAT_TEXT_LEN, "l") {
-      text_emboss(CAT_NAME);
-    }
-
-    faction_text_transform(CAT_TEXT_LEN, "r") {
-      text_emboss(CAT_NAME);
-    }*/
+    /*faction_labels(CAT_NAME, CAT_TEXT_LEN);*/
   }
 }
 

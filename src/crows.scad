@@ -57,13 +57,7 @@ module crow_box() {
       }
     }
 
-    /*faction_text_transform(CROW_TEXT_LEN, "l") {
-      text_emboss(CROW_NAME);
-    }
-
-    faction_text_transform(CROW_TEXT_LEN, "r") {
-      text_emboss(CROW_NAME);
-    }*/
+    /*faction_labels(CROW_NAME, CROW_TEXT_LEN);*/
   }
 }
 
