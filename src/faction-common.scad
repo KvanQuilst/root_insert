@@ -48,7 +48,7 @@ WARRIOR_PAD = 0.2;
 
 PIECE_PAD = 0.5;
 
-TEXT_HEIGHT = 4.0;
+TEXT_HEIGHT = 3.0;
 TEXT_SIZE = 8.0;
 TEXT_DEPTH = 1.0;
 
@@ -173,17 +173,17 @@ module finger_slot(piece_width, insert_height) {
   }
 }
 
+module hexagon(radius) {
+  translate([radius, radius, 0]) {
+    circle(r = radius, $fn = 6);
+  }
+}
+
 module text_emboss(t) {
   translate([0, TEXT_DEPTH, 0])
   rotate([90, 0, 0]) 
   linear_extrude(height = TEXT_DEPTH, center = false) {
     text(t, size = 9, font = "Luminari");
-  }
-}
-
-module hexagon(radius) {
-  translate([radius, radius, 0]) {
-    circle(r = radius, $fn = 6);
   }
 }
 
@@ -207,6 +207,16 @@ module faction_text_transform(text_len, pos) {
     resize([text_len, TEXT_DEPTH, TEXT_SIZE]) {
       children();
     }
+  }
+}
+
+module faction_labels(faction_name, text_len) {
+  faction_text_transform(text_len, "l") {
+    text_emboss(faction_name);
+  }
+
+  faction_text_transform(text_len, "r") {
+    text_emboss(faction_name);
   }
 }
 
