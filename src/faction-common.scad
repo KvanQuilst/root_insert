@@ -44,6 +44,8 @@ NIB_DEPTH = 1.5;
 FINGER_WIDTH = 14.0;
 FINGER_HEIGHT = 11.0;
 
+WARRIOR_PAD = 0.2;
+
 PIECE_PAD = 0.5;
 
 TEXT_HEIGHT = 4.0;
@@ -58,7 +60,7 @@ function slot_width(piece_width) =
   piece_width + PIECE_PAD;
 
 function slot_length(piece_depth, num_pieces) =
-  (piece_depth + 0.1) * num_pieces;
+  (piece_depth + WARRIOR_PAD) * num_pieces;
 
 function faction_height_add(warrior_height) =
   FACTION_HEIGHT_PAD + warrior_height;
@@ -106,6 +108,7 @@ module faction_warrior_slots(num_per_row, rows, num_warriors, warrior_width,
     row_warriors = i * num_per_row < num_warriors
                  ? num_per_row
                  : num_warriors - ((i - 1) * num_per_row);
+    echo(row_warriors);
 
     faction_front_translate(warrior_width, (i - 1)) {
       translate([(FACTION_WIDTH - slot_length(warrior_depth, row_warriors)) / 2,
@@ -209,7 +212,7 @@ module faction_text_transform(text_len, pos) {
 
 module warrior_slot(warrior_width, warrior_height,
                     warrior_depth = 0, num_warriors = 0) {
-  cube(size = [num_warriors * (warrior_depth + 0.2),
+  cube(size = [num_warriors * (warrior_depth + WARRIOR_PAD),
                slot_width(warrior_width),
                faction_height],
        center = false);
