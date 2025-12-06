@@ -84,9 +84,9 @@ module faction_base(warrior_height) {
   }
 }
 
-module faction_front_translate(width, row) {
+module faction_front_translate(width, row, pad = FACTION_BEZEL) {
   translate([0,
-             FACTION_BEZEL + (row * (FACTION_BEZEL + slot_width(width))),
+             FACTION_BEZEL + (row * (pad + slot_width(width))),
              0]) {
     children();
   }
@@ -101,16 +101,16 @@ module faction_warrior_finger_translate(width) {
 }
 
 module faction_warrior_slots(num_per_row, rows, num_warriors, warrior_width,
-                             warrior_height, warrior_depth) {
+                             warrior_height, warrior_depth,
+                             pad = FACTION_BEZEL) {
   faction_height = faction_height_add(warrior_height + PIECE_PAD);
 
   for (i = [1 : rows]) {
     row_warriors = i * num_per_row < num_warriors
                  ? num_per_row
                  : num_warriors - ((i - 1) * num_per_row);
-    echo(row_warriors);
 
-    faction_front_translate(warrior_width, (i - 1)) {
+    faction_front_translate(warrior_width, (i - 1), pad) {
       translate([(FACTION_WIDTH - slot_length(warrior_depth, row_warriors)) / 2,
                  0,
                  faction_height - warrior_height - PIECE_PAD]) {
