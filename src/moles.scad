@@ -110,7 +110,7 @@ module mole_box() {
       burrow();
     }
 
-    faction_labels(MOLE_NAME, MOLE_NAME_LEN);
+    /*faction_labels(MOLE_NAME, MOLE_NAME_LEN);*/
   }
 }
 
