@@ -25,7 +25,9 @@ FACTION_WIDTH = 70.0;
 FACTION_LEN = 97.5;
 FACTION_BEZEL = 2.5;
 FACTION_HEIGHT_PAD = 1.5;
+
 FACTION_CORNER_RAD = 0.6;
+FACTION_CHAMFER = 0.4;
 
 LID_WIDTH = FACTION_WIDTH - ((FACTION_BEZEL - 0.5) * 2);
 LID_LEN = FACTION_LEN - 2.0;
@@ -79,12 +81,41 @@ module faction_base(warrior_height) {
                  warrior_height + LID_DEPTH + PIECE_PAD,
                  FACTION_CORNER_RAD);
 
+    /* Lid Cutout */
     translate([(FACTION_WIDTH - lid_width) / 2, 0, faction_height + LID_DEPTH + PIECE_PAD])
     translate([lid_width / 2, 0, 0])
     rotate([0, 180, 0])
     resize([lid_width, lid_len, lid_depth])
     translate([-LID_WIDTH / 2, 0, 0]) {
       lid();
+    }
+
+    /* Chamfers */
+    rotate([90, 0, 0])
+    mirror([0, 0, 1])
+    linear_extrude(height = FACTION_LEN) {
+      right_triangle(FACTION_CHAMFER, FACTION_CHAMFER);
+    }
+
+    translate([FACTION_WIDTH, 0, 0])
+    rotate([90, 0, 0])
+    mirror([0, 0, 1])
+    linear_extrude(height = FACTION_LEN)
+    rotate([0, 0, 90]) {
+      right_triangle(FACTION_CHAMFER, FACTION_CHAMFER);
+    }
+
+    rotate([0, -90, 0])
+    mirror([0, 0, 1])
+    linear_extrude(height = FACTION_WIDTH) {
+      right_triangle(FACTION_CHAMFER, FACTION_CHAMFER);
+    }
+
+    translate([0, FACTION_LEN, 0])
+    rotate([0, -90, 0])
+    mirror([0, 0, 1])
+    linear_extrude(height = FACTION_WIDTH) {
+      right_triangle(FACTION_CHAMFER, FACTION_CHAMFER);
     }
   }
 }
