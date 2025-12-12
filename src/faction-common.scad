@@ -1,7 +1,7 @@
 /*
  * Root Box Inserts
  * Project units: millimeters (mm)
- * Common Modules and Functions
+ * Common Modules and Functions for Factions
  *
  * Copyright (C) 2025 Dylan Eskew
  *
@@ -19,7 +19,7 @@
  * this program. If not, see <https://www.gnu.org/licenses/>. 
  */
 
- $fn = 30;
+include <common.scad>
 
 FACTION_WIDTH = 70.0;
 FACTION_LEN = 97.5;
@@ -58,44 +58,6 @@ TEXT_DEPTH = 1.0;
 BUILDING_WIDTH = 18.1;
 TOKEN_WIDTH = 19.3;
 CARDBOARD_DEPTH = 1.9;
-
-module rounded_square(width, height, radius) {
-  module corner() {
-    difference() {
-      square(radius, false);
-      translate([radius, radius, 0]) {
-        circle(r = radius);
-      }
-    }
-  }
-
-  difference() {
-    square([width, height], false);
-
-    corner();
-
-    translate([width, 0, 0])
-    rotate([0, 0, 90]) {
-      corner();
-    }
-
-    translate([width, height, 0])
-    rotate([0, 0, 180]) {
-      corner();
-    }
-
-    translate([0, height, 0])
-    rotate([0, 0, 270]) {
-      corner();
-    }
-  }
-}
-
-module rounded_cube(width, depth, height, radius) {
-  linear_extrude(height = height, center = false) {
-    rounded_square(width, depth, radius);
-  }
-}
 
 function slot_width(piece_width) =
   piece_width + PIECE_PAD;
@@ -213,20 +175,6 @@ module finger_slot(piece_width, insert_height) {
                    insert_height],
            center = false);
     }
-  }
-}
-
-module hexagon(radius) {
-  translate([radius, radius, 0]) {
-    circle(r = radius, $fn = 6);
-  }
-}
-
-module text_emboss(t) {
-  translate([0, TEXT_DEPTH, 0])
-  rotate([90, 0, 0]) 
-  linear_extrude(height = TEXT_DEPTH, center = false) {
-    text(t, size = 9, font = "Luminari");
   }
 }
 
