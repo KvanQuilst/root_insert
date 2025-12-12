@@ -29,7 +29,7 @@ LIZARD_WARRIORS = 25;
 LIZARD_BUILDINGS = 17;
 
 LIZARD_NAME = "Lizard Cult";
-LIZARD_TEXT_LEN = 50.0;
+LIZARD_NAME_LEN = 50.0;
 
 faction_height = faction_height_add(LIZARD_HEIGHT + PIECE_PAD);
 
@@ -62,7 +62,7 @@ module lizard_box() {
       }
     }
 
-    /*faction_labels(LIZARD_NAME, LIZARD_TEXT_LEN);*/
+    /*faction_labels(LIZARD_NAME, LIZARD_NAME_LEN);*/
   }
 }
 

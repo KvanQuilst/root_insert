@@ -30,7 +30,7 @@ OTTER_BUILDINGS = 1;
 OTTER_TOKENS = 9;
 
 OTTER_NAME = "Riverfolk Company";
-OTTER_TEXT_LEN = 60;
+OTTER_NAME_LEN = 60;
 
 faction_height = faction_height_add(OTTER_HEIGHT + PIECE_PAD);
 
@@ -80,7 +80,7 @@ module otter_box() {
       }
     }
 
-    /*faction_labels(OTTER_NAME, OTTER_TEXT_LEN);*/
+    /*faction_labels(OTTER_NAME, OTTER_NAME_LEN);*/
   }
 }
 

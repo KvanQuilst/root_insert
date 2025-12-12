@@ -29,7 +29,7 @@ BIRD_WARRIORS = 20;
 BIRD_BUILDINGS = 8;
 
 BIRD_NAME = "Eyrie Dynasties";
-BIRD_TEXT_LEN = 60.0;
+BIRD_NAME_LEN = 60.0;
 
 faction_height = faction_height_add(BIRD_HEIGHT + PIECE_PAD);
 
@@ -53,7 +53,7 @@ module bird_box() {
       }
     }
 
-    faction_labels(BIRD_NAME, BIRD_TEXT_LEN);
+    faction_labels(BIRD_NAME, BIRD_NAME_LEN);
   }
 }
 

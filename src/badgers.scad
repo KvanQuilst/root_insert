@@ -30,7 +30,7 @@ BADGER_BUILDINGS = 4;
 BADGER_TOKENS = 12;
 
 BADGER_NAME = "Keepers in Iron";
-BADGER_TEXT_LEN = 60;
+BADGER_NAME_LEN = 60;
 
 faction_height = faction_height_add(BADGER_HEIGHT + PIECE_PAD);
 
@@ -56,7 +56,7 @@ module badger_box() {
       }
     }
 
-    faction_labels(BADGER_NAME, BADGER_TEXT_LEN);
+    faction_labels(BADGER_NAME, BADGER_NAME_LEN);
   }
 }
 

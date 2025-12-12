@@ -30,7 +30,7 @@ CROW_BUILDINGS = 1;
 CROW_TOKENS = 12;
 
 CROW_NAME = "Corvid Conspiracy";
-CROW_TEXT_LEN = 60.0;
+CROW_NAME_LEN = 60.0;
 
 faction_height = faction_height_add(CROW_HEIGHT + PIECE_PAD);
 
@@ -57,7 +57,7 @@ module crow_box() {
       }
     }
 
-    /*faction_labels(CROW_NAME, CROW_TEXT_LEN);*/
+    /*faction_labels(CROW_NAME, CROW_NAME_LEN);*/
   }
 }
 

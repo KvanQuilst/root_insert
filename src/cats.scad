@@ -30,7 +30,7 @@ CAT_BUILDINGS = 19;
 CAT_TOKENS = 9;
 
 CAT_NAME = "Marquise de Cat";
-CAT_TEXT_LEN = 60.0;
+CAT_NAME_LEN = 60.0;
 
 faction_height = faction_height_add(CAT_HEIGHT + PIECE_PAD);
 
@@ -56,7 +56,7 @@ module cat_box() {
       }
     }
 
-    /*faction_labels(CAT_NAME, CAT_TEXT_LEN);*/
+    /*faction_labels(CAT_NAME, CAT_NAME_LEN);*/
   }
 }
 
