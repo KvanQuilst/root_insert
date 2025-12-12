@@ -19,10 +19,13 @@
  * this program. If not, see <https://www.gnu.org/licenses/>. 
  */
 
+ $fn = 30;
+
 FACTION_WIDTH = 70.0;
 FACTION_LEN = 97.5;
 FACTION_BEZEL = 2.5;
 FACTION_HEIGHT_PAD = 1.5;
+FACTION_CORNER_RAD = 0.6;
 
 LID_WIDTH = FACTION_WIDTH - ((FACTION_BEZEL - 0.5) * 2);
 LID_LEN = FACTION_LEN - 2.0;
@@ -56,6 +59,44 @@ BUILDING_WIDTH = 18.1;
 TOKEN_WIDTH = 19.3;
 CARDBOARD_DEPTH = 1.9;
 
+module rounded_square(width, height, radius) {
+  module corner() {
+    difference() {
+      square(radius, false);
+      translate([radius, radius, 0]) {
+        circle(r = radius);
+      }
+    }
+  }
+
+  difference() {
+    square([width, height], false);
+
+    corner();
+
+    translate([width, 0, 0])
+    rotate([0, 0, 90]) {
+      corner();
+    }
+
+    translate([width, height, 0])
+    rotate([0, 0, 180]) {
+      corner();
+    }
+
+    translate([0, height, 0])
+    rotate([0, 0, 270]) {
+      corner();
+    }
+  }
+}
+
+module rounded_cube(width, depth, height, radius) {
+  linear_extrude(height = height, center = false) {
+    rounded_square(width, depth, radius);
+  }
+}
+
 function slot_width(piece_width) =
   piece_width + PIECE_PAD;
 
@@ -71,8 +112,10 @@ module faction_base(warrior_height) {
   lid_depth = LID_TAB_LEN + 0.1;
 
   difference() {
-    cube(size = [FACTION_WIDTH, FACTION_LEN, faction_height + LID_DEPTH + PIECE_PAD/*+ LID_SLOT_PAD*/],
-         center = false);
+    rounded_cube(FACTION_WIDTH,
+                 FACTION_LEN,
+                 warrior_height + LID_DEPTH + PIECE_PAD,
+                 FACTION_CORNER_RAD);
 
     translate([(FACTION_WIDTH - lid_width) / 2, 0, faction_height + LID_DEPTH + PIECE_PAD])
     translate([lid_width / 2, 0, 0])
