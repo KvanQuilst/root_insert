@@ -48,6 +48,7 @@ NIB_DEPTH = 1.5;
 
 FINGER_WIDTH = 15.0;
 FINGER_HEIGHT = 11.0;
+FINGER_RAD = 2.0;
 
 WARRIOR_PAD = 0.2;
 
@@ -194,6 +195,16 @@ module faction_cardboard_finger_translate(faction_height) {
 }
 
 module finger_slot(piece_width, insert_height) {
+  module corner() {
+    difference() {
+      cube([FACTION_WIDTH, FINGER_RAD, FINGER_RAD]);
+
+      rotate([0, 90, 0]) {
+        cylinder(r = FINGER_RAD, FACTION_WIDTH, center = false);
+      }
+    }
+  }
+
   union() {
     translate([0, 0, FINGER_WIDTH / 2]) {
       translate([0, FINGER_WIDTH / 2, 0])
@@ -205,6 +216,15 @@ module finger_slot(piece_width, insert_height) {
                    FINGER_WIDTH,
                    insert_height],
            center = false);
+    }
+
+    translate([0, -FINGER_RAD, FINGER_HEIGHT - (FINGER_RAD / 2)]) {
+      corner();
+    }
+
+    translate([0, FINGER_WIDTH + FINGER_RAD, FINGER_HEIGHT - (FINGER_RAD / 2)])
+    mirror([0, 1, 0]) {
+      corner();
     }
   }
 }
