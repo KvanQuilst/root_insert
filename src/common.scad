@@ -59,6 +59,14 @@ module rounded_cube(width, depth, height, radius) {
   }
 }
 
+module right_triangle(width, height) {
+  p0 = [0, 0];
+  p1 = [width, 0];
+  p2 = [0, height];
+
+  polygon([p0, p1, p2]);
+}
+
 module hexagon(radius) {
   translate([radius, radius, 0]) {
     circle(r = radius, $fn = 6);
