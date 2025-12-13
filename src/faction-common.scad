@@ -83,7 +83,7 @@ module faction_base(warrior_height) {
                  FACTION_CORNER_RAD);
 
     /* Lid Cutout */
-    translate([(FACTION_WIDTH - lid_width) / 2, 0, faction_height + LID_DEPTH + PIECE_PAD])
+    translate([(FACTION_WIDTH - lid_width) / 2, 0, warrior_height + LID_DEPTH + PIECE_PAD])
     translate([lid_width / 2, 0, 0])
     rotate([0, 180, 0])
     resize([lid_width, lid_len, lid_depth])
