@@ -380,3 +380,22 @@ module lid_test_position(faction_height) {
     children();
   }
 }
+
+module test_piece_fit(piece_width, piece_height, piece_depth) {
+  echo("WIDTH", piece_width + (2 * FACTION_BEZEL));
+  echo("HEIGHT", piece_height + (2 * PIECE_PAD));
+  echo("DEPTH", piece_depth + (2 * FACTION_BEZEL));
+
+  difference() {
+    rounded_cube(piece_depth + (2 * FACTION_BEZEL),
+                 piece_width + (2 * FACTION_BEZEL),
+                 piece_height + (2 * PIECE_PAD),
+                 FACTION_CORNER_RAD);
+
+    translate([FACTION_BEZEL,
+               FACTION_BEZEL,
+               PIECE_PAD]) {
+      warrior_slot(piece_width, piece_height, piece_depth, 1);
+    }
+  }
+}
