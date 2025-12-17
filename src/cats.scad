@@ -22,8 +22,8 @@
 include <faction-common.scad>
 
 CAT_WIDTH = 15.5;
-CAT_HEIGHT = 21.6;
-CAT_DEPTH = 8.6;
+CAT_HEIGHT = 21.8;
+CAT_DEPTH = 9.1;
 
 CAT_WARRIORS = 25;
 CAT_BUILDINGS = 19;
