@@ -21,7 +21,7 @@
 
 include <common.scad>
 
-FACTION_WIDTH = 70.0;
+FACTION_WIDTH = 74.0;
 FACTION_LEN = 97.5;
 FACTION_BEZEL = 2.5;
 FACTION_HEIGHT_PAD = 1.5;
@@ -50,9 +50,7 @@ FINGER_WIDTH = 15.0;
 FINGER_HEIGHT = 11.0;
 FINGER_RAD = 2.0;
 
-WARRIOR_PAD = 0.2;
-
-PIECE_PAD = 0.5;
+PIECE_PAD = 1.0;
 
 TEXT_HEIGHT = 3.0;
 TEXT_SIZE = 8.0;
@@ -66,7 +64,7 @@ function slot_width(piece_width) =
   piece_width + PIECE_PAD;
 
 function slot_length(piece_depth, num_pieces) =
-  (piece_depth + WARRIOR_PAD) * num_pieces;
+  (piece_depth + PIECE_PAD) * num_pieces;
 
 function faction_height_add(warrior_height) =
   FACTION_HEIGHT_PAD + warrior_height;
@@ -264,7 +262,7 @@ module faction_labels(faction_name, text_len) {
 
 module warrior_slot(warrior_width, warrior_height,
                     warrior_depth = 0, num_warriors = 0) {
-  cube(size = [num_warriors * (warrior_depth + WARRIOR_PAD),
+  cube(size = [slot_length(warrior_depth, num_warriors),
                slot_width(warrior_width),
                faction_height],
        center = false);
@@ -382,13 +380,17 @@ module lid_test_position(faction_height) {
 }
 
 module test_piece_fit(piece_width, piece_height, piece_depth) {
+  echo("PIECE_WIDTH", piece_width);
+  echo("PIECE_HEIGHT", piece_height);
+  echo("PIECE_DEPTH", piece_depth);
+
   echo("WIDTH", piece_width + (2 * FACTION_BEZEL));
   echo("HEIGHT", piece_height + (2 * PIECE_PAD));
   echo("DEPTH", piece_depth + (2 * FACTION_BEZEL));
 
   difference() {
-    rounded_cube(piece_depth + (2 * FACTION_BEZEL),
-                 piece_width + (2 * FACTION_BEZEL),
+    rounded_cube(piece_depth + PIECE_PAD + (2 * FACTION_BEZEL),
+                 piece_width + PIECE_PAD + (2 * FACTION_BEZEL),
                  piece_height + (2 * PIECE_PAD),
                  FACTION_CORNER_RAD);
 
